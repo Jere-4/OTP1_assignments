@@ -36,4 +36,28 @@ class TemperatureConverterTest {
         assertFalse(converter.isExtremeTemperature(50));
         assertFalse(converter.isExtremeTemperature(20));
     }
+
+    @Test
+    void testKelvinToCelsius_BasicExample() {
+        // Example: 300 K → 26.85 °C
+        assertEquals(26.85, converter.kelvinToCelsius(300.0), 0.001);
+    }
+
+    @Test
+    void testKelvinToCelsius_AbsoluteZero() {
+        // 0 K → -273.15 °C
+        assertEquals(-273.15, converter.kelvinToCelsius(0.0), 0.001);
+    }
+
+    @Test
+    void testKelvinToCelsius_FreezingPoint() {
+        // 273.15 K → 0 °C
+        assertEquals(0.0, converter.kelvinToCelsius(273.15), 0.001);
+    }
+
+    @Test
+    void testKelvinToCelsius_RoomTemperature() {
+        // 293.15 K → 20 °C
+        assertEquals(20.0, converter.kelvinToCelsius(293.15), 0.001);
+    }
 }
