@@ -1,18 +1,6 @@
-FROM maven:3.9-eclipse-temurin-17 AS build
+FROM maven:3.9.6-eclipse-temurin-17
 WORKDIR /app
-
 COPY pom.xml .
-RUN mvn -B -q -e -DskipTests dependency:go-offline
-
-COPY src ./src
-
-RUN mvn -B -q -e -DskipTests package
-
-FROM eclipse-temurin:17-jre-alpine
-WORKDIR /app
-
-COPY --from=build /app/target/*.jar /app/app.jar
-
-EXPOSE 8080
-
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
+COPY . /app
+RUN mvn package
+CMD ["java", "-jar", "target/YOURJAR.jar"]
